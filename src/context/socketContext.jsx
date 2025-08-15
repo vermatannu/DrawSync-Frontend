@@ -7,9 +7,9 @@ const SocketContext = createContext(null);
 export const SocketProvider = ({ children }) => {
   const socket = useMemo(
     () =>
-      io("http://localhost:5000", {
-        autoConnect: true, // IMPORTANT
-        transports: ["websocket"], // optional: skip polling
+      io("https://drawsync-backend-za78.onrender.com", {
+        autoConnect: true, 
+        transports: ["websocket"], 
       }),
     []
   );

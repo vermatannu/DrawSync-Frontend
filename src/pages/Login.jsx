@@ -40,7 +40,7 @@ const Login = ({ handleAuth, isAuthenticated }) => {
     setError("");
     setLoading(true);
     try {
-      const res = await axios.post("http://localhost:5000/api/login", formData);
+      const res = await axios.post("https://drawsync-backend-za78.onrender.com/api/login", formData);
       const token = res.data?.token;
       const email = res.data?.user?.email
       if (!token) throw new Error("No token returned from server");
