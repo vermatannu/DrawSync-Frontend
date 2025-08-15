@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { v4 as uuidv4 } from "uuid"; 
+import { v4 as uuidv4 } from "uuid";
 import { useSocket } from "../context/socketContext";
-
-
 
 const Room = () => {
   const [room, setRoom] = useState("");
@@ -11,6 +9,21 @@ const Room = () => {
   const [newRoomId, setNewRoomId] = useState("");
   const navigate = useNavigate();
   const socket = useSocket();
+
+  const setSocketTokenAndConnect = (token) => {
+    if (!socket) return;
+    socket.auth = { token };
+    socket.connect();
+  };
+
+  // If already authed (token in storage or parent flag), redirect to /room and ensure socket is connected
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token && socket) {
+      setSocketTokenAndConnect(token);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [socket]);
 
   useEffect(() => {
     socket.on("connect", () => {
@@ -39,14 +52,15 @@ const Room = () => {
     setNewRoomId(uuid);
     socket.emit("createRoom", uuid);
     setJoinedRoom(uuid);
-   
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
       <div className="bg-white/80 backdrop-blur-md shadow-xl rounded-2xl p-8 w-full max-w-md border border-gray-100 text-center">
         <h2 className="text-3xl font-semibold text-gray-800 mb-4">Room Page</h2>
-        <p className="text-gray-500 mb-6">Join an existing room or create a new one</p>
+        <p className="text-gray-500 mb-6">
+          Join an existing room or create a new one
+        </p>
 
         {/* Join Existing Room */}
         <input

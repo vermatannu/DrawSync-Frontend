@@ -29,12 +29,12 @@ function App() {
         <Router>
           <Routes>
             <Route path="/register" element={<Register />} />
-            <Route path="/login" element={<Login handleAuth={handleAuth}/>} />
+            <Route path="/login" element={<Login handleAuth={handleAuth} isAuthenticated={isAuthenticated}/>} />
             <Route
               path="/room"
               element={isAuthenticated ? <Room /> : <Navigate to="/login" />}
             />
-            <Route path="/draw/:roomId" element={<Draw />} />
+            <Route path="/draw/:roomId" element={isAuthenticated ? <Draw /> : <Navigate to="/login" />} />
             <Route path="*" element={<Navigate to="/login" />} />
           </Routes>
         </Router>
