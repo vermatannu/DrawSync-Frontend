@@ -1,27 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import io from "socket.io-client";
-import { v4 as uuidv4 } from "uuid"; // npm install uuid
+import { v4 as uuidv4 } from "uuid"; 
+import { useSocket } from "../context/socketContext";
 
-const socket = io("http://localhost:5000", {
-  auth: {
-    token: localStorage.getItem("token"),
-  },
-});
+
 
 const Room = () => {
   const [room, setRoom] = useState("");
   const [joinedRoom, setJoinedRoom] = useState("");
   const [newRoomId, setNewRoomId] = useState("");
   const navigate = useNavigate();
+  const socket = useSocket();
 
   useEffect(() => {
     socket.on("connect", () => {
       console.log("Connected to socket server");
-    });
-
-    socket.on("message", (msg) => {
-      console.log("Message:", msg);
     });
 
     socket.on("connect_error", (err) => {

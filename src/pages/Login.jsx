@@ -22,7 +22,7 @@ const Login = ({ handleAuth }) => {
     setError("");
 
     try {
-      const res = await axios.post("http://localhost:5000/api/login", formData);
+      const res = await axios.post("https://drawsync-backend-za78.onrender.com/api/login", formData);
       localStorage.setItem("token", res.data.token);
       alert("Login successful");
       handleAuth();

@@ -23,7 +23,7 @@ const Register = () => {
     setError("");
 
     try {
-      const res = await axios.post("http://localhost:3000/api/register", formData);
+      const res = await axios.post("https://drawsync-backend-za78.onrender.com/api/register", formData);
       alert(res.data.message);
       navigate("/login");
     } catch (err) {

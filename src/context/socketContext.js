@@ -11,7 +11,7 @@ export const SocketProvider = ({ children }) => {
     const connectSocket = () => {
       const token = localStorage.getItem("token");
       
-      const newSocket = io("http://localhost:5000", {
+      const newSocket = io("https://drawsync-backend-za78.onrender.com", {
        
         
        
